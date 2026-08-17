@@ -1,0 +1,40 @@
+---
+import { site } from "@/data/site";
+import "@/styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title
+  ? `${title} · ${site.name}`
+  : `${site.name} — ${site.tagline}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    {description && <meta name="description" content={description} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a href="#main">Skip to content</a>
+    <header>
+      <p>{site.name}</p>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer>
+      <p>&copy; {new Date().getFullYear()} {site.name}</p>
+    </footer>
+  </body>
+</html>

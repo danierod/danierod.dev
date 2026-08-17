@@ -1,0 +1,19 @@
+---
+description: Keep docs/ updated with decisions, roadmap status, and journal entries after major work.
+alwaysApply: true
+---
+
+# Decision log
+
+`docs/` is git-tracked source material for later articles. It is **not** published on the site. Do not add it to `src/content/writing/` or generate routes from it.
+
+After a meaningful change in this repo:
+
+- **Decision made or reversed** → add or update `docs/decisions/NNNN-slug.md` (next number, copy `_template.md`). Mark the old ADR `superseded` if replacing it.
+- **Feature started or finished** → update the matching row in `docs/ROADMAP.md`.
+- **Major change landed** (new feature, schema change, infra change, scaffold) → add `docs/journal/YYYY-MM-DD-slug.md` from `_template.md`. One entry per chunk of work, not per commit.
+- **Post idea** (not ready to publish) → `docs/ideas/article/` or `docs/ideas/til/`. Promote into `src/content/writing/` when it ships.
+
+Frontmatter required: `title`, `date`, `tags`, `article` (`long-form` | `til` | `none`). Decisions also need `status` (`proposed` | `accepted` | `superseded`).
+
+Example: switching hosts is a new ADR plus a journal note and a ROADMAP status change. Fixing a typo is none of these.

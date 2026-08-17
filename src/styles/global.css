@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    ui-monospace, "SFMono-Regular", menlo, monaco, consolas, monospace;
+
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+}
+
+:root {
+  --bg: oklch(99% 0 0);
+  --fg: oklch(22% 0 0);
+  --muted: oklch(45% 0 0);
+  --accent: oklch(45% 0.14 250);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: oklch(18% 0 0);
+    --fg: oklch(96% 0 0);
+    --muted: oklch(72% 0 0);
+    --accent: oklch(72% 0.12 250);
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+}
