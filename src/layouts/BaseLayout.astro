@@ -11,6 +11,10 @@ const { title, description } = Astro.props;
 const pageTitle = title
   ? `${title} · ${site.name}`
   : `${site.name} — ${site.tagline}`;
+const canonicalHref = new URL(
+  Astro.url.pathname,
+  Astro.site ?? site.url,
+).href;
 ---
 
 <!doctype html>
@@ -22,6 +26,7 @@ const pageTitle = title
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonicalHref} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{pageTitle}</title>
   </head>

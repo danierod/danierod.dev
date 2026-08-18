@@ -4,9 +4,9 @@ Status values: `planned` · `in-progress` · `done` · `wont-do`
 
 | Status  | Feature                          | Notes                                                                                                                                         |
 | ------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| done    | Repository scaffold              | Astro 7, Tailwind v4, MDX collections, docs log. See [journal/2026-08-17-repository-scaffold.md](journal/2026-08-17-repository-scaffold.md).  |
-| planned | Cloudflare Pages deploy          | Git integration; keep the site fully static (no adapter). First deploy serves `*.pages.dev`.                                                  |
-| planned | Domain & DNS                     | Domain stays registered at GoDaddy. Switch nameservers to Cloudflare, then add `danierod.dev` as a Pages custom domain (after the first deploy). |
+| done    | Repository scaffold              | Astro 7, Tailwind v4, MDX collections, docs log. See [journal/2026-08-17-repository-scaffold.md](journal/2026-08-17-repository-scaffold.md). |
+| done    | Cloudflare Pages deploy          | Git Pages project, static `dist/`, no adapter. Live at `danierod-dev.pages.dev`. See [journal/2026-08-18-cloudflare-pages-deploy.md](journal/2026-08-18-cloudflare-pages-deploy.md). |
+| done    | Domain & DNS                     | GoDaddy registrar, Cloudflare nameservers, Pages custom domains. Canonical apex ([0006](decisions/0006-canonical-apex.md)). See [0005](decisions/0005-godaddy-registrar-cloudflare-dns.md) and [journal/2026-08-18-domain-and-dns.md](journal/2026-08-18-domain-and-dns.md). |
 | planned | Milestone 1: Hero + About        | Fill `src/content/about/` and the home page shell.                                                                                            |
 | planned | Milestone 2: Case studies        | MoonPay and Urban Sports Club MDX entries plus listing/detail routes.                                                                         |
 | planned | Milestone 3: Writing engine      | Articles + TIL from the `writing` collection, RSS feed.                                                                                       |
