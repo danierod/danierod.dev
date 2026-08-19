@@ -17,5 +17,5 @@ Status values: `planned` · `in-progress` · `done` · `wont-do`
 | planned | Analytics                        | Privacy-focused (Cloudflare Web Analytics or Plausible).                                                                                      |
 | planned | `/cv` + PDF                      | Print CSS on `/cv`. If a static `public/cv.pdf` is needed, generate it in GitHub Actions with Playwright — not in the Cloudflare Pages build. |
 | planned | Testimonials section             | Fill `src/content/testimonials.yaml`.                                                                                                         |
-| planned | UI architecture                  | Organize tokens, components, and pages for the real site. Lab look is the target ([0008](decisions/0008-ui-lab-is-visual-poc.md)); lab code is not.                    |
+| planned | UI architecture                  | Organize tokens, components, and pages for the real site. Components by role ([0009](decisions/0009-component-folders-by-role.md)). Lab look is the target ([0008](decisions/0008-ui-lab-is-visual-poc.md)); lab code is not. |
 | in-progress | Visual assets & tokens           | Visual POC on `/design-system`, `/palette`, `/ui-idea` ([0008](decisions/0008-ui-lab-is-visual-poc.md)). Still: headshots, favicon.                                    |
