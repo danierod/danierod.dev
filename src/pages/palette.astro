@@ -1,0 +1,222 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const siteTokens = [
+  {
+    name: "bg",
+    role: "Page background",
+    light: "#f8fdfe",
+    dark: "#181818",
+  },
+  {
+    name: "surface",
+    role: "Raised chrome",
+    light: "#eff4f6",
+    dark: "#141414",
+  },
+  {
+    name: "fg",
+    role: "Body text",
+    light: "#191c22",
+    dark: "#f0f0f0",
+  },
+  {
+    name: "muted",
+    role: "Secondary text",
+    light: "#4d5660",
+    dark: "#a4a4a4",
+  },
+  {
+    name: "accent",
+    role: "Links, emphasis",
+    light: "#15687c",
+    dark: "#88c0d0",
+  },
+] as const;
+
+const extras = [
+  { name: "Link blue", hex: "#81a1c1", role: "textLink" },
+  { name: "Link hover", hex: "#87a6c4", role: "textLink.active" },
+  { name: "Syntax teal", hex: "#82d2ce", role: "keywords" },
+  { name: "Syntax blue", hex: "#87c3ff", role: "functions" },
+  { name: "Green", hex: "#3fa266", role: "success / diff add" },
+  { name: "Bright green", hex: "#a8cc7c", role: "strings" },
+  { name: "Yellow", hex: "#f1b467", role: "warning" },
+  { name: "Gold", hex: "#f8c762", role: "constants" },
+  { name: "Orange", hex: "#efb080", role: "parameters" },
+  { name: "Purple", hex: "#aaa0fa", role: "types" },
+  { name: "Pink", hex: "#e394dc", role: "keywords alt" },
+  { name: "Red", hex: "#e34671", role: "error" },
+  { name: "Bright red", hex: "#fc6b83", role: "terminal red" },
+] as const;
+---
+
+<BaseLayout title="Palette" noindex>
+  <div class="mx-auto max-w-5xl px-4 py-10">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h1 class="text-2xl font-semibold tracking-tight">Color palette</h1>
+        <p class="mt-2 max-w-xl text-muted">
+          Visual POC. Site tokens on the left, editor leftovers below. Toggle
+          the page chrome, or compare both schemes in the boards. Full
+          components live on the
+          <a class="link" href="/design-system">design system</a>.
+        </p>
+      </div>
+      <div class="flex gap-1 rounded-md border border-border p-1 text-sm">
+        <button type="button" tabindex="-1" data-theme-set="light">Light</button>
+        <button type="button" tabindex="-1" data-theme-set="dark">Dark</button>
+        <button type="button" tabindex="-1" data-theme-set="">System</button>
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      {
+        (["light", "dark"] as const).map((scheme) => (
+          <section
+            class="scheme-board overflow-hidden rounded-lg border"
+            data-scheme={scheme}
+          >
+            <header class="flex items-baseline justify-between px-4 py-3">
+              <h2 class="text-sm font-medium capitalize">{scheme}</h2>
+              <p class="text-xs opacity-70">
+                {scheme === "dark" ? "editor theme" : "derived frost"}
+              </p>
+            </header>
+            <div class="grid grid-cols-5">
+              {siteTokens.map((token) => (
+                <div
+                  class="aspect-square"
+                  style={`background: var(--${token.name}-${scheme})`}
+                  title={`${token.name} ${token[scheme]}`}
+                />
+              ))}
+            </div>
+            <ul class="space-y-3 px-4 py-4">
+              {siteTokens.map((token) => (
+                <li class="flex items-center gap-3 text-sm">
+                  <span
+                    class="size-8 shrink-0 rounded border"
+                    style={`background: var(--${token.name}-${scheme}); border-color: var(--border-${scheme})`}
+                  />
+                  <span class="min-w-0">
+                    <span class="block font-mono text-xs">--{token.name}</span>
+                    <span class="block opacity-70">{token.role}</span>
+                  </span>
+                  <code class="ml-auto font-mono text-xs opacity-80">
+                    {token[scheme]}
+                  </code>
+                </li>
+              ))}
+            </ul>
+            <div
+              class="space-y-2 border-t px-4 py-5"
+              style={`border-color: var(--border-${scheme})`}
+            >
+              <p class="text-lg font-medium">The quick brown fox</p>
+              <p>
+                Body copy on {scheme} surfaces, with a
+                <a
+                  class="caret-link"
+                  href="#type"
+                  style={`color: var(--accent-${scheme})`}
+                >
+                  frost accent link
+                </a>
+                .
+              </p>
+              <p class="text-sm" style={`color: var(--muted-${scheme})`}>
+                Muted secondary line for dates, captions, and nav.
+              </p>
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    <section class="mt-14">
+      <h2 class="text-lg font-medium">Editor extras</h2>
+      <p class="mt-1 text-sm text-muted">
+        Not wired as site tokens. Useful later for the terminal drawer, code,
+        and status.
+      </p>
+      <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+        {
+          extras.map((color) => (
+            <li class="flex items-center gap-3">
+              <span
+                class="size-10 shrink-0 rounded border border-border"
+                style={`background: ${color.hex}`}
+              />
+              <span class="min-w-0">
+                <span class="block text-sm">{color.name}</span>
+                <code class="block font-mono text-xs text-muted">
+                  {color.hex}
+                </code>
+                <span class="block text-xs text-muted">{color.role}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  [data-scheme="light"] {
+    background: var(--bg-light);
+    color: var(--fg-light);
+    border-color: var(--border-light);
+  }
+
+  [data-scheme="dark"] {
+    background: var(--bg-dark);
+    color: var(--fg-dark);
+    border-color: var(--border-dark);
+  }
+
+  button[data-theme-set] {
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.75rem;
+  }
+
+  button[data-theme-set][aria-pressed="true"] {
+    background: var(--surface);
+    color: var(--fg);
+  }
+
+  button[data-theme-set]:not([aria-pressed="true"]) {
+    color: var(--muted);
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    "[data-theme-set]",
+  );
+
+  const current = () => root.getAttribute("data-theme") ?? "";
+
+  const sync = () => {
+    const value = current();
+    for (const button of buttons) {
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.themeSet === value),
+      );
+    }
+  };
+
+  for (const button of buttons) {
+    button.addEventListener("click", () => {
+      const next = button.dataset.themeSet ?? "";
+      if (next) root.setAttribute("data-theme", next);
+      else root.removeAttribute("data-theme");
+      sync();
+    });
+  }
+
+  sync();
+</script>

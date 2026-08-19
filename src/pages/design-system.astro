@@ -1,0 +1,509 @@
+---
+import ThemeToggle from "@/components/ui/ThemeToggle.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const nav = [
+  {
+    heading: "Foundations",
+    items: [
+      { href: "#color", label: "Color" },
+      { href: "#typography", label: "Typography" },
+    ],
+  },
+  {
+    heading: "Components",
+    items: [
+      { href: "#button", label: "Button" },
+      { href: "#link", label: "Link" },
+      { href: "#notice", label: "Notice" },
+      { href: "#input", label: "Input" },
+      { href: "#chip", label: "Chip" },
+    ],
+  },
+];
+
+const tokens = [
+  { name: "bg", role: "Page", light: "#f8fdfe", dark: "#181818" },
+  { name: "surface", role: "Chrome", light: "#eff4f6", dark: "#141414" },
+  { name: "fg", role: "Text", light: "#191c22", dark: "#f0f0f0" },
+  { name: "muted", role: "Secondary", light: "#4d5660", dark: "#a4a4a4" },
+  { name: "accent", role: "Primary", light: "#15687c", dark: "#88c0d0" },
+  { name: "warning", role: "Hover", light: "#a96b00", dark: "#f9c762" },
+  { name: "success", role: "Success", light: "#006a37", dark: "#71b489" },
+  { name: "danger", role: "Error", light: "#bb1f54", dark: "#e34672" },
+] as const;
+
+const btnTypes = [
+  { id: "primary", label: "Filled", note: "Primary actions" },
+  { id: "secondary", label: "Ghost", note: "Secondary, bordered" },
+  { id: "ghost", label: "Borderless", note: "Tertiary, text only" },
+  { id: "danger", label: "Destructive", note: "Irreversible" },
+] as const;
+
+const btnSizes = [
+  { id: "lg", className: "btn-lg", label: "Large" },
+  { id: "md", className: "", label: "Medium" },
+  { id: "sm", className: "btn-sm", label: "Small" },
+] as const;
+
+const btnStates = ["default", "hover", "pressed", "disabled"] as const;
+
+const linkKinds = [
+  { className: "link", label: "Body", sample: "about.md" },
+  { className: "link-nav", label: "Nav", sample: "writing" },
+] as const;
+
+function btnClass(type: string, sizeClass: string, icon = false) {
+  return ["btn", `btn-${type}`, sizeClass, icon ? "btn-icon" : ""]
+    .filter(Boolean)
+    .join(" ");
+}
+---
+
+<BaseLayout title="Design system" noindex chrome={false}>
+  <div class="flex min-h-dvh">
+    <aside
+      class="sticky top-0 hidden h-dvh w-52 shrink-0 overflow-y-auto border-r border-border px-4 py-8 lg:block"
+    >
+      <p class="font-mono text-xs text-muted">danierod.dev</p>
+      <p class="mt-1 font-mono text-sm">design system</p>
+      <p class="font-mono text-xs text-muted">lab</p>
+      {
+        nav.map((group) => (
+          <div class="mt-8">
+            <p class="font-mono text-xs text-muted">{group.heading}</p>
+            <ul class="mt-2 space-y-1">
+              {group.items.map((item) => (
+                <li>
+                  <a class="link-nav font-mono text-sm" href={item.href}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+      <p class="mt-10 font-mono text-xs text-muted">
+        <a class="link" href="/ui-idea">ui idea</a>
+        <span> · </span>
+        <a class="link" href="/palette">palette</a>
+      </p>
+    </aside>
+
+    <div class="min-w-0 flex-1 px-4 py-8 sm:px-8 lg:px-12">
+      <header class="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p class="font-mono text-xs text-muted lg:hidden">
+            <a class="link" href="/ui-idea">ui idea</a>
+            <span> · </span>
+            <a class="link" href="/palette">palette</a>
+          </p>
+          <h1 class="mt-2 text-3xl font-semibold tracking-tight lg:mt-0">
+            Design system
+          </h1>
+          <p class="mt-2 max-w-xl text-muted">
+            Visual POC for the site look — not the production file layout.
+            Notes first, then a variant matrix. Forced states use
+            <code class="font-mono text-sm">data-state</code>.
+          </p>
+        </div>
+        <ThemeToggle />
+      </header>
+
+      <nav class="mt-6 flex flex-wrap gap-x-4 gap-y-1 font-mono text-sm lg:hidden">
+        {
+          nav.flatMap((group) =>
+            group.items.map((item) => (
+              <a class="link-nav" href={item.href}>
+                {item.label}
+              </a>
+            )),
+          )
+        }
+      </nav>
+
+      <section id="color" class="mt-20 scroll-mt-8">
+        <p class="font-mono text-xs text-muted">Foundations</p>
+        <h2 class="mt-1 text-2xl font-semibold tracking-tight">Color</h2>
+        <p class="mt-2 max-w-xl text-sm text-muted">
+          Semantic tokens. Live swatches follow the theme toggle.
+        </p>
+        <ul class="mt-8 grid grid-cols-2 gap-px bg-border sm:grid-cols-4">
+          {
+            tokens.map((token) => (
+              <li class="bg-bg p-4">
+                <span
+                  class="block aspect-4/3 border border-border"
+                  style={`background: var(--${token.name})`}
+                />
+                <p class="mt-3 font-mono text-sm">--{token.name}</p>
+                <p class="text-xs text-muted">{token.role}</p>
+                <p class="mt-1 font-mono text-xs text-muted">
+                  {token.dark} / {token.light}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section id="typography" class="mt-20 scroll-mt-8">
+        <p class="font-mono text-xs text-muted">Foundations</p>
+        <h2 class="mt-1 text-2xl font-semibold tracking-tight">Typography</h2>
+        <p class="mt-2 max-w-xl text-sm text-muted">
+          Sans for body. Mono for chrome, commands, and controls.
+        </p>
+        <div class="mt-8 divide-y divide-border border-y border-border">
+          <div class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr]">
+            <p class="font-mono text-xs text-muted">Display / h1</p>
+            <p class="text-4xl font-semibold tracking-tight sm:text-5xl">
+              Daniel Rodrigues
+            </p>
+          </div>
+          <div class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr]">
+            <p class="font-mono text-xs text-muted">Title / h2</p>
+            <p class="text-2xl font-semibold tracking-tight">Case studies</p>
+          </div>
+          <div class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr]">
+            <p class="font-mono text-xs text-muted">Body</p>
+            <p class="max-w-prose">
+              Software engineer focused on backend systems and APIs.
+            </p>
+          </div>
+          <div class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr]">
+            <p class="font-mono text-xs text-muted">Muted</p>
+            <p class="text-muted">Dates, captions, secondary nav.</p>
+          </div>
+          <div class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr]">
+            <p class="font-mono text-xs text-muted">Mono</p>
+            <p class="font-mono text-sm">
+              <span class="text-accent">$</span> cat about.md
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="button" class="mt-24 scroll-mt-8">
+        <p class="font-mono text-xs text-muted">Components</p>
+        <h2 class="mt-1 text-2xl font-semibold tracking-tight">Button</h2>
+
+        <div
+          class="mt-8 grid gap-12 xl:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)]"
+        >
+          <div>
+            <h3 class="font-mono text-sm text-accent">Notes</h3>
+            <p class="mt-3 text-sm text-muted">
+              Most changes belong on <code class="font-mono">.btn</code> and
+              the variant classes. Hover and pressed stay on the variant. Tab
+              skips buttons — they are pointer-only. Sizes and icon-only do not
+              change color.
+            </p>
+            <h3 class="mt-10 font-mono text-sm text-accent">Architecture</h3>
+            <pre
+              class="mt-3 overflow-x-auto font-mono text-xs text-muted"
+              tabindex="-1"
+            >
+{`.btn
+├── Filled        .btn-primary
+├── Ghost         .btn-secondary
+├── Borderless    .btn-ghost
+└── Destructive   .btn-danger
+    ├── size      .btn-lg | default | .btn-sm
+    ├── icon      .btn-icon
+    └── state     default | hover | pressed | disabled`}
+            </pre>
+          </div>
+
+          <div>
+            <h3 class="font-mono text-sm text-accent">Main</h3>
+            <p class="mt-1 text-xs text-muted">Live. Click these.</p>
+            <div class="mt-4 flex flex-wrap items-center gap-2">
+              <button type="button" tabindex="-1" class="btn btn-primary btn-lg">
+                Large
+              </button>
+              <button type="button" tabindex="-1" class="btn btn-primary">
+                Medium
+              </button>
+              <button type="button" tabindex="-1" class="btn btn-primary btn-sm">
+                Small
+              </button>
+              <button
+                type="button"
+                tabindex="-1"
+                class="btn btn-primary btn-icon"
+                aria-label="Add"
+              >
+                +
+              </button>
+            </div>
+
+            <h3 class="mt-10 font-mono text-sm text-accent">Types</h3>
+            <ul class="mt-4 grid gap-6 sm:grid-cols-2">
+              {
+                btnTypes.map((type) => (
+                  <li>
+                    <p class="font-mono text-xs text-muted">
+                      {type.label}
+                      <span class="ml-2 opacity-70">{type.note}</span>
+                    </p>
+                    <div class="mt-3 flex flex-wrap items-center gap-2">
+                      {btnSizes.map((size) => (
+                        <button
+                          type="button"
+                          tabindex="-1"
+                          class={btnClass(type.id, size.className)}
+                        >
+                          Label
+                        </button>
+                      ))}
+                      <button
+                        type="button"
+                        tabindex="-1"
+                        class={btnClass(type.id, "", true)}
+                        aria-label={`${type.label} icon`}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="mt-14 font-mono text-sm text-accent">Matrix</h3>
+        <p class="mt-1 text-sm text-muted">
+          Columns are types. Rows are states. Each cell is large, medium,
+          small, then icon-only.
+        </p>
+        <div class="mt-6 overflow-x-auto">
+          <table class="w-full min-w-208 text-left text-sm">
+            <thead>
+              <tr class="border-b border-border font-mono text-xs text-muted">
+                <th class="py-3 pr-4 font-normal">State</th>
+                {
+                  btnTypes.map((type) => (
+                    <th class="py-3 pr-4 font-normal">{type.label}</th>
+                  ))
+                }
+              </tr>
+            </thead>
+            <tbody>
+              {
+                btnStates.map((state) => (
+                  <tr class="border-b border-border align-top">
+                    <td class="py-4 pr-4 font-mono text-xs text-muted capitalize">
+                      {state}
+                    </td>
+                    {btnTypes.map((type) => (
+                      <td class="py-4 pr-4">
+                        <div class="flex flex-wrap items-center gap-2">
+                          {btnSizes.map((size) => (
+                            <button
+                              type="button"
+                              tabindex="-1"
+                              class={btnClass(type.id, size.className)}
+                              data-state={
+                                state === "default" ? undefined : state
+                              }
+                              disabled={state === "disabled"}
+                            >
+                              Label
+                            </button>
+                          ))}
+                          <button
+                            type="button"
+                            tabindex="-1"
+                            class={btnClass(type.id, "", true)}
+                            data-state={
+                              state === "default" ? undefined : state
+                            }
+                            disabled={state === "disabled"}
+                            aria-label={`${type.label} ${state}`}
+                          >
+                            +
+                          </button>
+                        </div>
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="link" class="mt-24 scroll-mt-8">
+        <p class="font-mono text-xs text-muted">Components</p>
+        <h2 class="mt-1 text-2xl font-semibold tracking-tight">Link</h2>
+        <div
+          class="mt-8 grid gap-12 xl:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)]"
+        >
+          <div>
+            <h3 class="font-mono text-sm text-accent">Notes</h3>
+            <p class="mt-3 text-sm text-muted">
+              Keyboard Tab lands only on links. No underline. Hover shows a
+              gold <code class="font-mono">_</code> under the last character.
+              Focus fills that last character with blinking gold. Pressed keeps
+              the caret still.
+            </p>
+            <h3 class="mt-10 font-mono text-sm text-accent">Architecture</h3>
+            <pre class="mt-3 font-mono text-xs text-muted" tabindex="-1">
+{`.link          body, frost
+.link-nav      chrome, muted
+.caret-link    lists, inherit color`}
+            </pre>
+          </div>
+          <div>
+            <h3 class="font-mono text-sm text-accent">Main</h3>
+            <p class="mt-4 max-w-prose">
+              Inline <a class="link" href="#link">body link</a> and a
+              <a class="link-nav font-mono text-sm" href="#link"> nav item</a>.
+            </p>
+            <div class="mt-8 overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead>
+                  <tr class="border-b border-border font-mono text-xs text-muted">
+                    <th class="py-3 pr-4 font-normal">Kind</th>
+                    {
+                      ["default", "hover", "pressed", "focus"].map((state) => (
+                        <th class="py-3 pr-4 font-normal capitalize">{state}</th>
+                      ))
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    linkKinds.map((kind) => (
+                      <tr class="border-b border-border">
+                        <td class="py-3 pr-4 text-muted">{kind.label}</td>
+                        {["default", "hover", "pressed", "focus"].map(
+                          (state) => (
+                            <td class="py-3 pr-4">
+                              <a
+                                class:list={[kind.className, "font-mono"]}
+                                href="#link"
+                                data-state={
+                                  state === "default" ? undefined : state
+                                }
+                              >
+                                {kind.sample}
+                              </a>
+                            </td>
+                          ),
+                        )}
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="notice" class="mt-24 scroll-mt-8">
+        <p class="font-mono text-xs text-muted">Components</p>
+        <h2 class="mt-1 text-2xl font-semibold tracking-tight">Notice</h2>
+        <div
+          class="mt-8 grid gap-12 xl:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)]"
+        >
+          <div>
+            <h3 class="font-mono text-sm text-accent">Notes</h3>
+            <p class="mt-3 text-sm text-muted">
+              Quiet status. Semantic color on the hairline and the mono label
+              only. Body stays default text.
+            </p>
+          </div>
+          <div class="grid gap-3">
+            <div class="notice notice-ok">
+              <p class="notice-label">success</p>
+              <p class="mt-1">Deployed to Cloudflare Pages.</p>
+            </div>
+            <div class="notice notice-warn">
+              <p class="notice-label">warning</p>
+              <p class="mt-1">This lab route is not indexed.</p>
+            </div>
+            <div class="notice notice-err">
+              <p class="notice-label">error</p>
+              <p class="mt-1">Collection is empty.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="input" class="mt-24 scroll-mt-8">
+        <p class="font-mono text-xs text-muted">Components</p>
+        <h2 class="mt-1 text-2xl font-semibold tracking-tight">Input</h2>
+        <div
+          class="mt-8 grid gap-12 xl:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)]"
+        >
+          <div>
+            <h3 class="font-mono text-sm text-accent">Notes</h3>
+            <p class="mt-3 text-sm text-muted">
+              Surface fill, hairline border. Hover darkens the edge. Invalid
+              uses danger. Inputs are pointer-only — Tab skips them.
+            </p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead>
+                <tr class="border-b border-border font-mono text-xs text-muted">
+                  {
+                    ["default", "hover", "error", "disabled"].map((state) => (
+                      <th class="py-3 pr-4 font-normal capitalize">{state}</th>
+                    ))
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  {
+                    ["default", "hover", "error", "disabled"].map((state) => (
+                      <td class="py-4 pr-4 align-top">
+                        <input
+                          class="field max-w-36"
+                          type="text"
+                          tabindex="-1"
+                          value={state}
+                          data-state={state === "default" ? undefined : state}
+                          disabled={state === "disabled"}
+                          aria-invalid={state === "error"}
+                          readonly={state !== "default"}
+                        />
+                      </td>
+                    ))
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="chip" class="mt-24 scroll-mt-8 pb-24">
+        <p class="font-mono text-xs text-muted">Components</p>
+        <h2 class="mt-1 text-2xl font-semibold tracking-tight">Chip</h2>
+        <div
+          class="mt-8 grid gap-12 xl:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)]"
+        >
+          <div>
+            <h3 class="font-mono text-sm text-accent">Notes</h3>
+            <p class="mt-3 text-sm text-muted">
+              Tech and meta labels. Mono, hairline, muted. Not interactive yet.
+            </p>
+          </div>
+          <ul class="flex flex-wrap gap-2">
+            <li class="chip">TypeScript</li>
+            <li class="chip">Node.js</li>
+            <li class="chip">GraphQL</li>
+            <li class="chip">PostgreSQL</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

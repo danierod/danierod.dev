@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./components.css";
 
 @theme {
   --font-sans: ui-sans-serif, system-ui, sans-serif;
@@ -6,30 +7,108 @@
     ui-monospace, "SFMono-Regular", menlo, monaco, consolas, monospace;
 
   --color-bg: var(--bg);
+  --color-surface: var(--surface);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-on-accent: var(--on-accent);
 }
 
 :root {
-  --bg: oklch(99% 0 0);
-  --fg: oklch(22% 0 0);
-  --muted: oklch(45% 0 0);
-  --accent: oklch(45% 0.14 250);
+  --bg-light: oklch(99% 0.005 218);
+  --surface-light: oklch(96.5% 0.006 218);
+  --fg-light: oklch(22.6% 0.013 264);
+  --muted-light: oklch(45% 0.02 249);
+  --accent-light: oklch(48% 0.08 218);
+  --border-light: oklch(22.6% 0.013 264 / 0.12);
+  --success-light: oklch(46% 0.12 154);
+  --danger-light: oklch(52% 0.19 8);
+  --warning-light: oklch(58% 0.13 72);
+  --on-accent-light: oklch(99% 0.005 218);
+
+  --bg-dark: oklch(20.9% 0 0);
+  --surface-dark: oklch(19.1% 0 0);
+  --fg-dark: oklch(95.5% 0 0);
+  --muted-dark: oklch(71.9% 0 0);
+  --accent-dark: oklch(77.5% 0.062 218);
+  --border-dark: oklch(95.5% 0 0 / 0.075);
+  --success-dark: oklch(71.3% 0.094 155);
+  --danger-dark: oklch(62.8% 0.194 8);
+  --warning-dark: oklch(85.4% 0.131 83);
+  --on-accent-dark: oklch(19.1% 0 0);
+
   color-scheme: light dark;
+}
+
+:root,
+html[data-theme="light"] {
+  --bg: var(--bg-light);
+  --surface: var(--surface-light);
+  --fg: var(--fg-light);
+  --muted: var(--muted-light);
+  --accent: var(--accent-light);
+  --border: var(--border-light);
+  --success: var(--success-light);
+  --danger: var(--danger-light);
+  --warning: var(--warning-light);
+  --on-accent: var(--on-accent-light);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: oklch(18% 0 0);
-    --fg: oklch(96% 0 0);
-    --muted: oklch(72% 0 0);
-    --accent: oklch(72% 0.12 250);
+    --bg: var(--bg-dark);
+    --surface: var(--surface-dark);
+    --fg: var(--fg-dark);
+    --muted: var(--muted-dark);
+    --accent: var(--accent-dark);
+    --border: var(--border-dark);
+    --success: var(--success-dark);
+    --danger: var(--danger-dark);
+    --warning: var(--warning-dark);
+    --on-accent: var(--on-accent-dark);
   }
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: var(--bg-dark);
+  --surface: var(--surface-dark);
+  --fg: var(--fg-dark);
+  --muted: var(--muted-dark);
+  --accent: var(--accent-dark);
+  --border: var(--border-dark);
+  --success: var(--success-dark);
+  --danger: var(--danger-dark);
+  --warning: var(--warning-dark);
+  --on-accent: var(--on-accent-dark);
 }
 
 body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
+}
+
+button:focus,
+button:focus-visible,
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+summary:focus,
+summary:focus-visible,
+pre:focus,
+pre:focus-visible {
+  outline: none;
+  box-shadow: none;
 }

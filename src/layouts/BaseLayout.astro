@@ -5,9 +5,11 @@ import "@/styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
+  chrome?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false, chrome = true } = Astro.props;
 const pageTitle = title
   ? `${title} · ${site.name}`
   : `${site.name} — ${site.tagline}`;
@@ -26,20 +28,44 @@ const canonicalHref = new URL(
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     {description && <meta name="description" content={description} />}
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalHref} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{pageTitle}</title>
   </head>
   <body>
-    <a href="#main">Skip to content</a>
-    <header>
-      <p>{site.name}</p>
-    </header>
+    <a class="link" href="#main">Skip to content</a>
+    {
+      chrome && (
+        <header>
+          <p>{site.name}</p>
+        </header>
+      )
+    }
     <main id="main">
       <slot />
     </main>
-    <footer>
-      <p>&copy; {new Date().getFullYear()} {site.name}</p>
-    </footer>
+    {
+      chrome && (
+        <footer>
+          <p>&copy; {new Date().getFullYear()} {site.name}</p>
+        </footer>
+      )
+    }
+    <script>
+      const skipTab = "button, input, select, textarea, summary, pre";
+      for (const el of document.querySelectorAll<HTMLElement>(skipTab)) {
+        el.tabIndex = -1;
+      }
+
+      for (const el of document.querySelectorAll<HTMLElement>("*")) {
+        if (el instanceof HTMLAnchorElement) continue;
+        const { overflow, overflowX, overflowY } = getComputedStyle(el);
+        const scrollable = [overflow, overflowX, overflowY].some(
+          (value) => value === "auto" || value === "scroll",
+        );
+        if (scrollable) el.tabIndex = -1;
+      }
+    </script>
   </body>
 </html>

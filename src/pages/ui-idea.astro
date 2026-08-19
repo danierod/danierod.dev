@@ -1,0 +1,327 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+
+const nav = [
+  { href: "#about", label: "about" },
+  { href: "#work", label: "work" },
+  { href: "#writing", label: "writing" },
+  { href: "#cv", label: "cv.md" },
+];
+
+const work = [
+  {
+    company: "MoonPay",
+    role: "Software Engineer",
+    period: "202x—",
+    summary: "Payments infrastructure and APIs.",
+  },
+  {
+    company: "Urban Sports Club",
+    role: "Software Engineer",
+    period: "202x—",
+    summary: "Member platform, backend services.",
+  },
+];
+
+const posts = [
+  {
+    date: "2026-08-18",
+    kind: "article",
+    title: "Token-efficient agent chats",
+  },
+  {
+    date: "2026-08-18",
+    kind: "til",
+    title: "Canonical host: www vs apex",
+  },
+  {
+    date: "2026-08-17",
+    kind: "article",
+    title: "Cloudflare Pages for a static Astro site",
+  },
+];
+---
+
+<BaseLayout title="UI idea" noindex chrome={false}>
+  <div class="flex min-h-dvh flex-col">
+    <p
+      class="border-b border-border bg-surface px-4 py-1.5 font-mono text-xs text-muted"
+    >
+      visual POC · not the homepage ·
+      <a class="link" href="/design-system">design system</a>
+      <span> · </span>
+      <a class="link" href="/palette">palette</a>
+    </p>
+
+    <header
+      class="site-nav sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-border bg-bg px-4 py-3"
+    >
+      <a href="#main" class="link-nav nav-brand font-mono text-sm"
+        >{site.shortName}<span>.dev</span></a
+      >
+      <nav class="flex items-center gap-4 font-mono text-sm">
+        {
+          nav.map((item) => (
+            <a href={item.href} class="link-nav">
+              {item.label}
+            </a>
+          ))
+        }
+        <span class="hidden h-4 w-px bg-border sm:block"></span>
+        <div class="hidden gap-1 sm:flex">
+          <button type="button" tabindex="-1" data-theme-set="light">
+            light
+          </button>
+          <button type="button" tabindex="-1" data-theme-set="dark">
+            dark
+          </button>
+          <button type="button" tabindex="-1" data-theme-set="">
+            sys
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <div class="mx-auto w-full max-w-3xl flex-1 px-4 pb-28 pt-16 sm:pt-24">
+      <section>
+        <p class="font-mono text-sm text-muted">
+          <span class="text-accent">$</span> whoami
+        </p>
+        <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+          {site.name}
+        </h1>
+        <p class="mt-4 max-w-xl text-lg text-muted">
+          {site.role}. {site.tagline}.
+        </p>
+      </section>
+
+      <section id="about" class="mt-20">
+        <h2 class="font-mono text-sm text-accent">cat about.md</h2>
+        <div class="mt-4 space-y-4 text-pretty">
+          <p>
+            Software engineer focused on backend systems and APIs. Typed
+            boundaries, boring infrastructure, tools that stay out of the way.
+          </p>
+          <p class="text-muted">
+            Placeholder copy for the mock. Real about lives in
+            <code class="font-mono text-sm text-fg">src/content/about/</code> once
+            Milestone 1 lands.
+          </p>
+        </div>
+        <ul class="mt-6 flex flex-wrap gap-2 font-mono text-xs text-muted">
+          {
+            site.knowsAbout.map((item) => (
+              <li class="border border-border px-2 py-1">{item}</li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section id="work" class="mt-20">
+        <h2 class="font-mono text-sm text-accent">ls case-studies/</h2>
+        <ul class="mt-4 divide-y divide-border border-y border-border">
+          {
+            work.map((job) => (
+              <li>
+                <a
+                  href="#work"
+                  class="caret-link flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between"
+                >
+                  <span>
+                    <span class="block font-medium">{job.company}</span>
+                    <span class="block text-sm text-muted">{job.summary}</span>
+                  </span>
+                  <span class="font-mono text-xs text-muted sm:text-right">
+                    {job.role}
+                    <span class="mx-2 text-border">·</span>
+                    {job.period}
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section id="writing" class="mt-20">
+        <h2 class="font-mono text-sm text-accent">head writing/</h2>
+        <ul class="mt-4 space-y-3">
+          {
+            posts.map((post) => (
+              <li>
+                <a href="#writing" class="caret-link flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <time
+                    class="font-mono text-xs text-muted"
+                    datetime={post.date}
+                  >
+                    {post.date}
+                  </time>
+                  <span
+                    class:list={[
+                      "font-mono text-xs",
+                      post.kind === "til" ? "kind-til" : "kind-article",
+                    ]}
+                  >
+                    {post.kind}
+                  </span>
+                  <span>{post.title}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section id="cv" class="mt-20 border-t border-border pt-8">
+        <p class="font-mono text-sm text-muted">
+          <span class="text-accent">$</span> open cv.md
+          <span class="mx-3">→</span>
+          <a href="#cv" class="link">/cv</a>
+          <span class="text-muted"> · </span>
+          <a href="#cv" class="link">about.md</a>
+          <span class="text-muted"> · </span>
+          <a class="link" href={site.socials.github} rel="me">github</a>
+        </p>
+        <p class="mt-6 text-sm text-muted">
+          &copy; {new Date().getFullYear()} {site.name}
+        </p>
+      </section>
+    </div>
+
+    <details class="terminal">
+      <summary tabindex="-1">
+        <span class="text-accent">~</span>
+        <span>zsh</span>
+        <span class="hidden sm:inline">· cat about.md</span>
+        <span class="ml-auto opacity-60">terminal</span>
+      </summary>
+      <pre tabindex="-1">
+<span class="text-muted"># danierod.dev — zsh</span>
+<span class="text-accent">$</span> ls
+<span class="term-teal">about.md</span>  <span class="term-teal">case-studies/</span>  <span class="term-teal">writing/</span>  <span class="term-gold">cv.md</span>
+<span class="text-accent">$</span> cat about.md
+<span class="term-gold"># About</span>
+
+Software engineer. TypeScript, Node, GraphQL.
+This drawer stays Polar Night in both schemes —
+the editor on the page.
+<span class="text-accent">$</span> <span class="caret">█</span>
+      </pre>
+    </details>
+  </div>
+</BaseLayout>
+
+<style>
+  button[data-theme-set] {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  button[data-theme-set][aria-pressed="true"] {
+    color: var(--fg);
+  }
+
+  button[data-theme-set]:hover {
+    color: var(--warning);
+  }
+
+  .nav-brand {
+    color: var(--fg);
+  }
+
+  .nav-brand span {
+    color: var(--muted);
+  }
+
+  .kind-article {
+    color: #81a1c1;
+  }
+
+  .kind-til {
+    color: #d2943e;
+  }
+
+  .terminal {
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    background: var(--bg-dark);
+    color: var(--fg-dark);
+    border-top: 1px solid var(--border-dark);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+
+  .terminal summary {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    list-style: none;
+    color: var(--muted-dark);
+  }
+
+  .terminal summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .terminal pre {
+    margin: 0;
+    padding: 0 1rem 1.25rem;
+    white-space: pre-wrap;
+    line-height: 1.65;
+  }
+
+  .term-teal {
+    color: #82d2ce;
+  }
+
+  .term-gold {
+    color: #f8c762;
+  }
+
+  .caret {
+    color: var(--accent-dark);
+  }
+
+  html[data-theme="light"] .kind-article {
+    color: var(--accent-light);
+  }
+
+  html[data-theme="light"] .kind-til {
+    color: #9a6b24;
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    "[data-theme-set]",
+  );
+
+  const current = () => root.getAttribute("data-theme") ?? "";
+
+  const sync = () => {
+    const value = current();
+    for (const button of buttons) {
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.themeSet === value),
+      );
+    }
+  };
+
+  for (const button of buttons) {
+    button.addEventListener("click", () => {
+      const next = button.dataset.themeSet ?? "";
+      if (next) root.setAttribute("data-theme", next);
+      else root.removeAttribute("data-theme");
+      sync();
+    });
+  }
+
+  sync();
+</script>

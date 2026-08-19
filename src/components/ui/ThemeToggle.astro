@@ -1,0 +1,43 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["theme-toggle", className]}>
+  <button type="button" tabindex="-1" data-theme-set="light">Light</button>
+  <button type="button" tabindex="-1" data-theme-set="dark">Dark</button>
+  <button type="button" tabindex="-1" data-theme-set="">System</button>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    "[data-theme-set]",
+  );
+
+  const current = () => root.getAttribute("data-theme") ?? "";
+
+  const sync = () => {
+    const value = current();
+    for (const button of buttons) {
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.themeSet === value),
+      );
+    }
+  };
+
+  for (const button of buttons) {
+    button.addEventListener("click", () => {
+      const next = button.dataset.themeSet ?? "";
+      if (next) root.setAttribute("data-theme", next);
+      else root.removeAttribute("data-theme");
+      sync();
+    });
+  }
+
+  sync();
+</script>
