@@ -1,7 +1,9 @@
 ---
+import Hero from "@/components/sections/Hero.astro";
+import { site } from "@/data/site";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
-<BaseLayout>
-  <p>Site scaffold. Content comes next.</p>
+<BaseLayout description={site.intro}>
+  <Hero name={site.name} intro={site.intro} />
 </BaseLayout>
