@@ -1,6 +1,7 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import Link from "@/components/ui/link/Link.astro";
 import { site } from "@/data/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const nav = [
   { href: "#about", label: "about" },
@@ -49,23 +50,23 @@ const posts = [
       class="border-b border-border bg-surface px-4 py-1.5 font-mono text-xs text-muted"
     >
       visual POC · not the homepage ·
-      <a class="link" href="/design-system">design system</a>
+      <Link href="/design-system">design system</Link>
       <span> · </span>
-      <a class="link" href="/palette">palette</a>
+      <Link href="/palette">palette</Link>
     </p>
 
     <header
       class="site-nav sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-border bg-bg px-4 py-3"
     >
-      <a href="#main" class="link-nav nav-brand font-mono text-sm"
-        >{site.shortName}<span>.dev</span></a
+      <Link href="#main" variant="nav" class="nav-brand font-mono text-sm"
+        >{site.shortName}<span>.dev</span></Link
       >
       <nav class="flex items-center gap-4 font-mono text-sm">
         {
           nav.map((item) => (
-            <a href={item.href} class="link-nav">
+            <Link href={item.href} variant="nav">
               {item.label}
-            </a>
+            </Link>
           ))
         }
         <span class="hidden h-4 w-px bg-border sm:block"></span>
@@ -76,9 +77,7 @@ const posts = [
           <button type="button" tabindex="-1" data-theme-set="dark">
             dark
           </button>
-          <button type="button" tabindex="-1" data-theme-set="">
-            sys
-          </button>
+          <button type="button" tabindex="-1" data-theme-set=""> sys </button>
         </div>
       </nav>
     </header>
@@ -124,9 +123,10 @@ const posts = [
           {
             work.map((job) => (
               <li>
-                <a
+                <Link
                   href="#work"
-                  class="caret-link flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between"
+                  variant="caret"
+                  class="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between"
                 >
                   <span>
                     <span class="block font-medium">{job.company}</span>
@@ -137,7 +137,7 @@ const posts = [
                     <span class="mx-2 text-border">·</span>
                     {job.period}
                   </span>
-                </a>
+                </Link>
               </li>
             ))
           }
@@ -150,7 +150,11 @@ const posts = [
           {
             posts.map((post) => (
               <li>
-                <a href="#writing" class="caret-link flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <Link
+                  href="#writing"
+                  variant="caret"
+                  class="flex flex-wrap items-baseline gap-x-3 gap-y-1"
+                >
                   <time
                     class="font-mono text-xs text-muted"
                     datetime={post.date}
@@ -166,7 +170,7 @@ const posts = [
                     {post.kind}
                   </span>
                   <span>{post.title}</span>
-                </a>
+                </Link>
               </li>
             ))
           }
@@ -177,14 +181,15 @@ const posts = [
         <p class="font-mono text-sm text-muted">
           <span class="text-accent">$</span> open cv.md
           <span class="mx-3">→</span>
-          <a href="#cv" class="link">/cv</a>
+          <Link href="#cv">/cv</Link>
           <span class="text-muted"> · </span>
-          <a href="#cv" class="link">about.md</a>
+          <Link href="#cv">about.md</Link>
           <span class="text-muted"> · </span>
-          <a class="link" href={site.socials.github} rel="me">github</a>
+          <Link href={site.socials.github} rel="me">github</Link>
         </p>
         <p class="mt-6 text-sm text-muted">
-          &copy; {new Date().getFullYear()} {site.name}
+          &copy; {new Date().getFullYear()}
+          {site.name}
         </p>
       </section>
     </div>
@@ -196,7 +201,8 @@ const posts = [
         <span class="hidden sm:inline">· cat about.md</span>
         <span class="ml-auto opacity-60">terminal</span>
       </summary>
-      <pre tabindex="-1">
+      <pre
+        tabindex="-1">
 <span class="text-muted"># danierod.dev — zsh</span>
 <span class="text-accent">$</span> ls
 <span class="term-teal">about.md</span>  <span class="term-teal">case-studies/</span>  <span class="term-teal">writing/</span>  <span class="term-gold">cv.md</span>
@@ -298,9 +304,8 @@ the editor on the page.
 
 <script>
   const root = document.documentElement;
-  const buttons = document.querySelectorAll<HTMLButtonElement>(
-    "[data-theme-set]",
-  );
+  const buttons =
+    document.querySelectorAll<HTMLButtonElement>("[data-theme-set]");
 
   const current = () => root.getAttribute("data-theme") ?? "";
 

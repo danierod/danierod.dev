@@ -1,4 +1,5 @@
 ---
+import Link from "@/components/ui/link/Link.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const siteTokens = [
@@ -60,11 +61,12 @@ const extras = [
           Visual POC. Site tokens on the left, editor leftovers below. Toggle
           the page chrome, or compare both schemes in the boards. Full
           components live on the
-          <a class="link" href="/design-system">design system</a>.
+          <Link href="/design-system">design system</Link>.
         </p>
       </div>
       <div class="flex gap-1 rounded-md border border-border p-1 text-sm">
-        <button type="button" tabindex="-1" data-theme-set="light">Light</button>
+        <button type="button" tabindex="-1" data-theme-set="light">Light</button
+        >
         <button type="button" tabindex="-1" data-theme-set="dark">Dark</button>
         <button type="button" tabindex="-1" data-theme-set="">System</button>
       </div>
@@ -116,13 +118,13 @@ const extras = [
               <p class="text-lg font-medium">The quick brown fox</p>
               <p>
                 Body copy on {scheme} surfaces, with a
-                <a
-                  class="caret-link"
+                <Link
+                  variant="caret"
                   href="#type"
                   style={`color: var(--accent-${scheme})`}
                 >
                   frost accent link
-                </a>
+                </Link>
                 .
               </p>
               <p class="text-sm" style={`color: var(--muted-${scheme})`}>
@@ -193,9 +195,8 @@ const extras = [
 
 <script>
   const root = document.documentElement;
-  const buttons = document.querySelectorAll<HTMLButtonElement>(
-    "[data-theme-set]",
-  );
+  const buttons =
+    document.querySelectorAll<HTMLButtonElement>("[data-theme-set]");
 
   const current = () => root.getAttribute("data-theme") ?? "";
 

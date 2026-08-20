@@ -1,0 +1,150 @@
+@layer components {
+  .link,
+  .link-nav,
+  .caret-link {
+    position: relative;
+    isolation: isolate;
+    text-decoration: none;
+  }
+
+  .link {
+    color: var(--accent);
+  }
+
+  .link-nav {
+    color: var(--muted);
+  }
+
+  .link::after,
+  .link-nav::after,
+  .caret-link::after {
+    content: "_";
+    position: absolute;
+    right: 0;
+    bottom: -0.12em;
+    width: 0.6em;
+    color: var(--warning);
+    font-family: var(--font-mono);
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .link:hover::after,
+  .link[data-state="hover"]::after,
+  .link-nav:hover::after,
+  .link-nav[data-state="hover"]::after,
+  .caret-link:hover::after,
+  .caret-link[data-state="hover"]::after,
+  .link-hit:hover :is(.link, .link-nav, .caret-link)::after,
+  .link-hit[data-state="hover"] :is(.link, .link-nav, .caret-link)::after {
+    opacity: 1;
+    animation: caret-blink 1.05s steps(1, end) infinite;
+  }
+
+  .link:active::after,
+  .link[data-state="pressed"]::after,
+  .link-nav:active::after,
+  .link-nav[data-state="pressed"]::after,
+  .caret-link:active::after,
+  .caret-link[data-state="pressed"]::after,
+  .link-hit:active :is(.link, .link-nav, .caret-link)::after,
+  .link-hit[data-state="pressed"] :is(.link, .link-nav, .caret-link)::after {
+    opacity: 1;
+    animation: none;
+  }
+
+  .link:focus-visible,
+  .link-nav:focus-visible,
+  .caret-link:focus-visible,
+  .link-hit:focus-visible {
+    outline: none;
+  }
+
+  .link:focus-visible:not(:hover):not(:active)::after,
+  .link[data-state="focus"]:not(:hover):not(:active)::after,
+  .link-nav:focus-visible:not(:hover):not(:active)::after,
+  .link-nav[data-state="focus"]:not(:hover):not(:active)::after,
+  .caret-link:focus-visible:not(:hover):not(:active)::after,
+  .caret-link[data-state="focus"]:not(:hover):not(:active)::after,
+  .link-hit:focus-visible:not(:hover):not(:active)
+    :is(.link, .link-nav, .caret-link)::after,
+  .link-hit[data-state="focus"]:not(:hover):not(:active)
+    :is(.link, .link-nav, .caret-link)::after {
+    content: "";
+    top: 0.08em;
+    right: 0;
+    bottom: 0.08em;
+    width: 0.62em;
+    background: var(--warning);
+    color: transparent;
+    opacity: 1;
+    z-index: -1;
+    animation: caret-blink 1.05s steps(1, end) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .link:hover::after,
+    .link[data-state="hover"]::after,
+    .link-nav:hover::after,
+    .link-nav[data-state="hover"]::after,
+    .caret-link:hover::after,
+    .caret-link[data-state="hover"]::after,
+    .link-hit:hover :is(.link, .link-nav, .caret-link)::after,
+    .link-hit[data-state="hover"] :is(.link, .link-nav, .caret-link)::after,
+    .link:focus-visible:not(:hover):not(:active)::after,
+    .link[data-state="focus"]:not(:hover):not(:active)::after,
+    .link-nav:focus-visible:not(:hover):not(:active)::after,
+    .link-nav[data-state="focus"]:not(:hover):not(:active)::after,
+    .caret-link:focus-visible:not(:hover):not(:active)::after,
+    .caret-link[data-state="focus"]:not(:hover):not(:active)::after,
+    .link-hit:focus-visible:not(:hover):not(:active)
+      :is(.link, .link-nav, .caret-link)::after,
+    .link-hit[data-state="focus"]:not(:hover):not(:active)
+      :is(.link, .link-nav, .caret-link)::after {
+      animation: none;
+    }
+  }
+
+  .link-hit {
+    display: inline-flex;
+    width: fit-content;
+    align-items: baseline;
+    gap: 0.25rem;
+    text-decoration: none;
+  }
+
+  .link-hit.link-hit-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+  }
+
+  .link-hit-mark {
+    color: var(--muted);
+  }
+
+  .link-hit:hover .link-hit-mark,
+  .link-hit:active .link-hit-mark,
+  .link-hit:focus-visible .link-hit-mark,
+  .link-hit[data-state="hover"] .link-hit-mark,
+  .link-hit[data-state="pressed"] .link-hit-mark,
+  .link-hit[data-state="focus"] .link-hit-mark {
+    color: var(--warning);
+  }
+}
+
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}

@@ -27,100 +27,6 @@
     outline: none;
   }
 
-  .link,
-  .link-nav,
-  .caret-link {
-    position: relative;
-    isolation: isolate;
-    text-decoration: none;
-  }
-
-  .link {
-    color: var(--accent);
-  }
-
-  .link-nav {
-    color: var(--muted);
-  }
-
-  .link::after,
-  .link-nav::after,
-  .caret-link::after {
-    content: "_";
-    position: absolute;
-    right: 0;
-    bottom: -0.12em;
-    width: 0.6em;
-    color: var(--warning);
-    font-family: var(--font-mono);
-    font-weight: 400;
-    line-height: 1;
-    text-align: center;
-    pointer-events: none;
-    opacity: 0;
-  }
-
-  .link:hover::after,
-  .link[data-state="hover"]::after,
-  .link-nav:hover::after,
-  .link-nav[data-state="hover"]::after,
-  .caret-link:hover::after,
-  .caret-link[data-state="hover"]::after {
-    opacity: 1;
-    animation: caret-blink 1.05s steps(1, end) infinite;
-  }
-
-  .link:active::after,
-  .link[data-state="pressed"]::after,
-  .link-nav:active::after,
-  .link-nav[data-state="pressed"]::after,
-  .caret-link:active::after,
-  .caret-link[data-state="pressed"]::after {
-    opacity: 1;
-    animation: none;
-  }
-
-  .link:focus-visible,
-  .link-nav:focus-visible,
-  .caret-link:focus-visible {
-    outline: none;
-  }
-
-  .link:focus-visible:not(:hover):not(:active)::after,
-  .link[data-state="focus"]:not(:hover):not(:active)::after,
-  .link-nav:focus-visible:not(:hover):not(:active)::after,
-  .link-nav[data-state="focus"]:not(:hover):not(:active)::after,
-  .caret-link:focus-visible:not(:hover):not(:active)::after,
-  .caret-link[data-state="focus"]:not(:hover):not(:active)::after {
-    content: "";
-    top: 0.08em;
-    right: 0;
-    bottom: 0.08em;
-    width: 0.62em;
-    background: var(--warning);
-    color: transparent;
-    opacity: 1;
-    z-index: -1;
-    animation: caret-blink 1.05s steps(1, end) infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .link:hover::after,
-    .link[data-state="hover"]::after,
-    .link-nav:hover::after,
-    .link-nav[data-state="hover"]::after,
-    .caret-link:hover::after,
-    .caret-link[data-state="hover"]::after,
-    .link:focus-visible:not(:hover):not(:active)::after,
-    .link[data-state="focus"]:not(:hover):not(:active)::after,
-    .link-nav:focus-visible:not(:hover):not(:active)::after,
-    .link-nav[data-state="focus"]:not(:hover):not(:active)::after,
-    .caret-link:focus-visible:not(:hover):not(:active)::after,
-    .caret-link[data-state="focus"]:not(:hover):not(:active)::after {
-      animation: none;
-    }
-  }
-
   .btn {
     display: inline-flex;
     align-items: center;
@@ -319,17 +225,5 @@
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--muted);
-  }
-}
-
-@keyframes caret-blink {
-  0%,
-  49% {
-    opacity: 1;
-  }
-
-  50%,
-  100% {
-    opacity: 0;
   }
 }

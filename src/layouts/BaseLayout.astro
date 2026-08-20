@@ -13,10 +13,7 @@ const { title, description, noindex = false } = Astro.props;
 const pageTitle = title
   ? `${title} · ${site.name}`
   : `${site.name} — ${site.tagline}`;
-const canonicalHref = new URL(
-  Astro.url.pathname,
-  Astro.site ?? site.url,
-).href;
+const canonicalHref = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
 ---
 
 <!doctype html>
@@ -35,7 +32,6 @@ const canonicalHref = new URL(
     <title>{pageTitle}</title>
   </head>
   <body>
-    <a class="link" href="#main">Skip to content</a>
     <main id="main">
       <slot />
     </main>
