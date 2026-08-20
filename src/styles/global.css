@@ -1,11 +1,12 @@
 @import "tailwindcss";
 @import "./components.css";
 
-@theme {
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-mono:
-    ui-monospace, "SFMono-Regular", menlo, monaco, consolas, monospace;
+@theme inline {
+  --font-sans: var(--font-fira-code);
+  --font-mono: var(--font-fira-code);
+}
 
+@theme {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-fg: var(--fg);
@@ -95,6 +96,9 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1;
 }
 
 button:focus,
