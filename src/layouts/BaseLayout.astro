@@ -7,10 +7,9 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
-  chrome?: boolean;
 }
 
-const { title, description, noindex = false, chrome = true } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 const pageTitle = title
   ? `${title} · ${site.name}`
   : `${site.name} — ${site.tagline}`;
@@ -37,23 +36,9 @@ const canonicalHref = new URL(
   </head>
   <body>
     <a class="link" href="#main">Skip to content</a>
-    {
-      chrome && (
-        <header>
-          <p>{site.name}</p>
-        </header>
-      )
-    }
     <main id="main">
       <slot />
     </main>
-    {
-      chrome && (
-        <footer>
-          <p>&copy; {new Date().getFullYear()} {site.name}</p>
-        </footer>
-      )
-    }
     <script>
       const skipTab = "button, input, select, textarea, summary, pre";
       for (const el of document.querySelectorAll<HTMLElement>(skipTab)) {
