@@ -1,0 +1,20 @@
+---
+description: Branch from main for each feature; merge complete work with --no-ff.
+alwaysApply: true
+---
+
+# Feature branches onto main
+
+Follow [ADR 0011](../../docs/decisions/0011-feature-branches-onto-main.md). Production is `main`. Unfinished features do not land there.
+
+When a new ROADMAP milestone or feature starts (unless told otherwise):
+
+1. If HEAD is already the matching feature branch, stay on it.
+2. Otherwise fetch `origin/main` and create the branch from **that** commit, not from another feature branch.
+3. Names: `milestone-N-short-slug` (e.g. `milestone-2-case-studies`). Smaller work: `feat/short-slug` or `fix/short-slug`.
+
+Do not nest branches. One active feature branch; switching is checkout. ROADMAP, ADRs, and journal updates belong on that branch.
+
+Do not merge to `main` or push until asked. When merging: `git merge --no-ff` — never squash, never fast-forward. Then push `main` only if asked. Do not push the feature branch unless a preview URL or remote backup is requested.
+
+Hotfixes may use a short `fix/…` from `main`, or a direct commit if told.
