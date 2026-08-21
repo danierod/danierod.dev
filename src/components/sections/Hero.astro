@@ -1,5 +1,6 @@
 ---
 import Link from "@/components/ui/link/Link.astro";
+import Text from "@/components/ui/text/Text.astro";
 
 interface Props {
   name: string;
@@ -17,19 +18,17 @@ const names = name.split(" ");
   <div
     class="@container flex min-w-[min(100%,min-content)] flex-[1_1_36rem] items-center bg-bg px-6 py-16 md:px-10 lg:px-14"
   >
-    <h1
-      class="w-full text-[clamp(min(5rem,18cqi),16cqi,8rem)] font-semibold uppercase leading-[0.9] tracking-tight"
-    >
+    <Text variant="hero-title" class="w-full">
       {names.map((part) => <span class="block whitespace-nowrap">{part}</span>)}
-    </h1>
+    </Text>
   </div>
 
   <div
     class="flex min-w-[min(100%,20rem)] flex-[1.4_1_26rem] flex-col bg-bg px-6 pb-8 pt-10 md:py-16 md:pl-6 md:pr-10 lg:pl-8 lg:pr-12"
   >
-    <p class="my-auto max-w-2xl text-pretty text-sm font-light text-muted md:text-base">
+    <Text variant="lede" muted class="my-auto max-w-2xl">
       {intro.split("\n").map((line) => <span class="block">{line}</span>)}
-    </p>
+    </Text>
     <!-- TODO: Add cta link back in once we have a page to link to -->
     <!-- <Link href={ctaHref} icon="↓" layout="stack" class="mt-12 text-sm md:mt-0">
       {ctaLabel}

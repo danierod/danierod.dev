@@ -1,0 +1,45 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Variant =
+  | "hero-title"
+  | "title"
+  | "sub-title"
+  | "lede"
+  | "body"
+  | "label";
+type Tag = "h1" | "h2" | "h3" | "h4" | "p" | "span";
+
+const defaultTag = {
+  "hero-title": "h1",
+  title: "h2",
+  "sub-title": "h3",
+  lede: "p",
+  body: "p",
+  label: "p",
+} as const satisfies Record<Variant, Tag>;
+
+type Props = HTMLAttributes<"p"> & {
+  as?: Tag;
+  variant?: Variant;
+  muted?: boolean;
+};
+
+const {
+  as,
+  variant = "body",
+  muted = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const Tag = as ?? defaultTag[variant];
+---
+
+<Tag class:list={[`type-${variant}`, muted && "type-muted", className]} {...rest}>
+  <slot />
+</Tag>
+
+<style>
+  @import "./text.css";
+</style>

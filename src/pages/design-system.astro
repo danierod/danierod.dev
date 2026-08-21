@@ -1,5 +1,6 @@
 ---
 import Link from "@/components/ui/link/Link.astro";
+import Text from "@/components/ui/text/Text.astro";
 import ThemeToggle from "@/components/ui/ThemeToggle.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
@@ -158,35 +159,126 @@ function btnClass(type: string, sizeClass: string, icon = false) {
       <section id="typography" class="mt-20 scroll-mt-8">
         <p class="font-mono text-xs text-muted">Foundations</p>
         <h2 class="mt-1 text-2xl font-semibold tracking-tight">Typography</h2>
-        <p class="mt-2 max-w-xl text-sm text-muted">
-          Fira Code for body, display, and chrome. Ligatures stay on.
-        </p>
-        <div class="mt-8 divide-y divide-border border-y border-border">
-          <div class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr]">
-            <p class="font-mono text-xs text-muted">Display / h1</p>
-            <p class="text-4xl font-semibold tracking-tight sm:text-5xl">
-              Daniel Rodrigues
+        <div
+          class="mt-8 grid gap-12 xl:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)]"
+        >
+          <div>
+            <h3 class="font-mono text-sm text-accent">Notes</h3>
+            <p class="mt-3 text-sm text-muted">
+              Fira Code for body, headings, and chrome. Ligatures stay on. Named
+              looks live on <code class="font-mono">Text</code> —
+              <code class="font-mono">variant</code> is the size recipe,
+              <code class="font-mono">muted</code> is the color. Layout (width,
+              margin) stays on the caller.
+              <code class="font-mono">hero-title</code> uses
+              <code class="font-mono">cqi</code>, so it only scales inside an
+              <code class="font-mono">@container</code>. Lede is the opening
+              paragraph under a headline — not a heading rank.
             </p>
+            <h3 class="mt-10 font-mono text-sm text-accent">Architecture</h3>
+            <pre
+              class="mt-3 overflow-x-auto font-mono text-xs text-muted"
+              tabindex="-1">
+{`ui/text/Text.astro + text.css
+as        h1 | h2 | h3 | h4 | p | span
+variant   hero-title | title | sub-title | lede | body | label
+muted     color only`}
+            </pre>
           </div>
-          <div class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr]">
-            <p class="font-mono text-xs text-muted">Title / h2</p>
-            <p class="text-2xl font-semibold tracking-tight">Case studies</p>
-          </div>
-          <div class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr]">
-            <p class="font-mono text-xs text-muted">Body</p>
-            <p class="max-w-prose">
-              Software engineer focused on backend systems and APIs.
-            </p>
-          </div>
-          <div class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr]">
-            <p class="font-mono text-xs text-muted">Muted</p>
-            <p class="text-muted">Dates, captions, secondary nav.</p>
-          </div>
-          <div class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr]">
-            <p class="font-mono text-xs text-muted">Mono</p>
-            <p class="font-mono text-sm">
-              <span class="text-accent">$</span> cat about.md
-            </p>
+          <div>
+            <h3 class="font-mono text-sm text-accent">Main</h3>
+            <p class="mt-1 text-xs text-muted">Live. Same recipes as production.</p>
+            <div class="mt-4 divide-y divide-border border-y border-border">
+              <div
+                class="grid items-start gap-x-6 gap-y-3 py-6 lg:grid-cols-[7.5rem_minmax(0,16rem)_minmax(0,1fr)]"
+              >
+                <p class="font-mono text-xs text-muted">hero-title</p>
+                <Text variant="body" muted>
+                  Home Hero name only. One per page. Parent must be an
+                  <code class="font-mono text-xs">@container</code> — the size
+                  uses <code class="font-mono text-xs">cqi</code>.
+                </Text>
+                <div class="@container min-w-0">
+                  <Text variant="hero-title" as="p">
+                    <span class="block whitespace-nowrap">Daniel</span>
+                    <span class="block whitespace-nowrap">Rodrigues</span>
+                  </Text>
+                </div>
+              </div>
+              <div
+                class="grid items-start gap-x-6 gap-y-3 py-6 lg:grid-cols-[7.5rem_minmax(0,16rem)_minmax(0,1fr)]"
+              >
+                <p class="font-mono text-xs text-muted">title</p>
+                <Text variant="body" muted>
+                  Page or section headings. Listing pages, case-study titles,
+                  design-system section names. Default
+                  <code class="font-mono text-xs">h2</code>.
+                </Text>
+                <Text variant="title" as="p">Case studies</Text>
+              </div>
+              <div
+                class="grid items-start gap-x-6 gap-y-3 py-6 lg:grid-cols-[7.5rem_minmax(0,16rem)_minmax(0,1fr)]"
+              >
+                <p class="font-mono text-xs text-muted">sub-title</p>
+                <Text variant="body" muted>
+                  Heading under a title — company or article name in a list.
+                  Default <code class="font-mono text-xs">h3</code>. Not the
+                  <code class="font-mono text-xs">$ stack</code> chrome label.
+                </Text>
+                <Text variant="sub-title" as="p">MoonPay</Text>
+              </div>
+              <div
+                class="grid items-start gap-x-6 gap-y-3 py-6 lg:grid-cols-[7.5rem_minmax(0,16rem)_minmax(0,1fr)]"
+              >
+                <p class="font-mono text-xs text-muted">lede</p>
+                <Text variant="body" muted>
+                  Opening paragraph under a headline. Hero intro. Pair with
+                  <code class="font-mono text-xs">muted</code> when it should
+                  recede. A paragraph, not a heading.
+                </Text>
+                <Text variant="lede" muted>
+                  Software engineer. I like typed boundaries, boring
+                  infrastructure, and tools that stay out of the way.
+                </Text>
+              </div>
+              <div
+                class="grid items-start gap-x-6 gap-y-3 py-6 lg:grid-cols-[7.5rem_minmax(0,16rem)_minmax(0,1fr)]"
+              >
+                <p class="font-mono text-xs text-muted">body</p>
+                <Text variant="body" muted>
+                  Default reading copy. About, case studies, articles. Reach
+                  for this unless a more specific variant fits.
+                </Text>
+                <Text variant="body" class="max-w-prose">
+                  Software engineer focused on backend systems and APIs.
+                </Text>
+              </div>
+              <div
+                class="grid items-start gap-x-6 gap-y-3 py-6 lg:grid-cols-[7.5rem_minmax(0,16rem)_minmax(0,1fr)]"
+              >
+                <p class="font-mono text-xs text-muted">muted</p>
+                <Text variant="body" muted>
+                  Color prop, not a size. Pair with any variant when copy
+                  should recede — captions, dates, secondary nav, Hero lede.
+                </Text>
+                <Text variant="body" muted>Dates, captions, secondary nav.</Text>
+              </div>
+              <div
+                class="grid items-start gap-x-6 gap-y-3 py-6 lg:grid-cols-[7.5rem_minmax(0,16rem)_minmax(0,1fr)]"
+              >
+                <p class="font-mono text-xs text-muted">label</p>
+                <Text variant="body" muted>
+                  Chrome and terminal-style section labels.
+                  <code class="font-mono text-xs">$ stack</code>, nav crumbs,
+                  lab captions. Small mono. Usually
+                  <code class="font-mono text-xs">muted</code>; keep accent on
+                  the <code class="font-mono text-xs">$</code>.
+                </Text>
+                <Text variant="label" muted>
+                  <span class="text-accent">$</span> cat about.md
+                </Text>
+              </div>
+            </div>
           </div>
         </div>
       </section>
