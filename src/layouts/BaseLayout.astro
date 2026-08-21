@@ -19,6 +19,9 @@ const canonicalHref = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
 <!doctype html>
 <html lang="en">
   <head>
+    <style is:inline>
+      @layer theme, base, components, utilities;
+    </style>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
