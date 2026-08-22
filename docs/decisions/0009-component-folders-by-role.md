@@ -31,7 +31,7 @@ Rules:
 
 - Pages in `src/pages/` route and compose. Layouts in `src/layouts/` own the document shell. Components render UI. Reusable files do not live under `src/pages/` — they become URLs.
 - **Kit primitive → `ui/` on first production use.** If it is a named control in the design system (Link, Button, Notice, Chip, ThemeToggle), add it under `src/components/ui/` when it first ships on a real page — even if used once. Do not wait for a second route. Page blocks stay in `sections/` even if they are one-offs (Hero).
-- **Prefer local styles** unless they cannot work, or there is a strong reason not to. This is not limited to kit primitives: sections, layout chrome, and pages follow it too. Colocate CSS with the module (a scoped `<style>` with `@import "./….css"`, or styles in the component). The Astro file is the API; the colocated CSS is the look.
+- **Prefer local styles** unless they cannot work, or there is a strong reason not to. This is not limited to kit primitives: sections, layout chrome, and pages follow it too. Colocate CSS with the module. Components import that file from the frontmatter and do not use a `<style>` tag ([0014](0014-component-css-files-not-style-tags.md)). The Astro file is the API; the colocated CSS is the look.
 - Do not wrap every `<a>` or `<button>` in a component until it is a named kit primitive.
 - Prefer `.astro`. React lives in `cli/` only.
 

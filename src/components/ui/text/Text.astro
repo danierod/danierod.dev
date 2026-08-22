@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import "./text.css";
 
 type Variant =
   | "hero-title"
@@ -39,7 +40,3 @@ const Tag = as ?? defaultTag[variant];
 <Tag class:list={[`type-${variant}`, muted && "type-muted", className]} {...rest}>
   <slot />
 </Tag>
-
-<style>
-  @import "./text.css";
-</style>

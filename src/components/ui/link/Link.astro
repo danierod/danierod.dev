@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import "./link.css";
 
 type Variant = "body" | "nav" | "caret";
 type Layout = "inline" | "stack";
@@ -54,7 +55,3 @@ const hasIcon = hasIconSlot || Boolean(icon);
     </a>
   )
 }
-
-<style>
-  @import "./link.css";
-</style>
