@@ -27,7 +27,7 @@ Variants: `hero-title`, `title`, `sub-title`, `lede`, `body`, `label`. Adding a 
 - Hero and the lab catalog share the same recipes. Drift is a missing variant, not a missed class name.
 - Tailwind preflight sets `h1–h6 { font-size: inherit; font-weight: inherit }` in `@layer base`. Colocated `Text` CSS is also `@layer components`, but Astro inlines it before the bundled Tailwind file. `BaseLayout` emits the layer order first so `components` stays above `base` and `hero-title` can actually size an `h1`.
 - Markdown/MDX copy is not wrapped yet. Article type will need a prose rule or MDX map when the writing engine ships — same constraint as Link.
-- Lab routes (`/ui-idea`, `/palette`, `/work-draft`) may still use ad-hoc Tailwind until they consume `Text`.
+- Lab routes (`/ui-idea`, `/palette`) may still use ad-hoc Tailwind until they consume `Text`.
 
 ## Alternatives considered
 

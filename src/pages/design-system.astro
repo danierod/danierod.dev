@@ -1,4 +1,5 @@
 ---
+import Chip from "@/components/ui/chip/Chip.astro";
 import Link from "@/components/ui/link/Link.astro";
 import Text from "@/components/ui/text/Text.astro";
 import ThemeToggle from "@/components/ui/ThemeToggle.astro";
@@ -617,10 +618,10 @@ icon + layout  stack | inline`}
             </p>
           </div>
           <ul class="flex flex-wrap gap-2">
-            <li class="chip">TypeScript</li>
-            <li class="chip">Node.js</li>
-            <li class="chip">GraphQL</li>
-            <li class="chip">PostgreSQL</li>
+            <li><Chip>TypeScript</Chip></li>
+            <li><Chip>Node.js</Chip></li>
+            <li><Chip>GraphQL</Chip></li>
+            <li><Chip>PostgreSQL</Chip></li>
           </ul>
         </div>
       </section>

@@ -20,6 +20,7 @@ All authored content lives in Astro content collections with Zod schemas, valida
 | -------------- | ------ | ------------------------- |
 | `about`        | MDX    | Engineer / human sections |
 | `case-studies` | MDX    | Work write-ups            |
+| `experience`   | YAML   | Roles and highlights for `/work` |
 | `writing`      | MDX    | Public articles and TILs  |
 | `testimonials` | YAML   | Structured quotes         |
 

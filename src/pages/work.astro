@@ -1,0 +1,112 @@
+---
+import Chip from "@/components/ui/chip/Chip.astro";
+import Link from "@/components/ui/link/Link.astro";
+import Text from "@/components/ui/text/Text.astro";
+import JobEntry from "@/components/sections/jobs/JobEntry.astro";
+import JobList from "@/components/sections/jobs/JobList.astro";
+import { cv } from "@/data/cv";
+import { site } from "@/data/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import "./work.css";
+
+const jobs = (await getCollection("experience")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const names = site.name.split(" ");
+---
+
+<BaseLayout title="Work" description={`${site.role} · ${cv.location}`}>
+  <div class="cv-page flex min-h-dvh flex-col">
+    <p
+      class="no-print work-chrome border-b border-border bg-surface py-1.5 font-mono text-xs text-muted"
+    >
+      <Link href="/">home</Link>
+      <button type="button" class="print-trigger" tabindex="-1" data-print>
+        print / save as PDF
+      </button>
+    </p>
+
+    <article class="cv">
+      <header class="masthead">
+        <h1 class="masthead-name">
+          {names.map((part) => <span>{part}</span>)}
+        </h1>
+        <div class="masthead-copy">
+          <p class="masthead-role">
+            <span class="text-accent">$</span> whoami
+          </p>
+          <p class="mt-2 text-sm">
+            {site.role}
+            <span class="mx-2 text-border">·</span>
+            {cv.location}
+          </p>
+          <Text variant="lede" muted class="lede mt-4 max-w-xl">
+            {cv.summary}
+          </Text>
+          <p class="masthead-links">
+            <Link href={site.url}>{site.shortName}.dev</Link>
+            <Link href={site.socials.github}>github</Link>
+            {
+              site.socials.linkedin && (
+                <Link href={site.socials.linkedin}>linkedin</Link>
+              )
+            }
+          </p>
+        </div>
+      </header>
+
+      <div class="cv-body">
+        <section>
+          <h2><span class="text-accent">$</span> stack</h2>
+          <ul class="skill-list">
+            {
+              site.knowsAbout.map((skill) => (
+                <li>
+                  <Chip>{skill}</Chip>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="text-accent">$</span> experience</h2>
+          <JobList>
+            {
+              jobs.map((job) => (
+                <JobEntry
+                  company={job.data.company}
+                  location={job.data.location}
+                  note={job.data.note}
+                  roles={job.data.roles}
+                  highlights={job.data.highlights}
+                />
+              ))
+            }
+          </JobList>
+        </section>
+
+        <section class="cv-meta">
+          <div>
+            <h2><span class="text-accent">$</span> education</h2>
+            <p class="mt-3 text-sm">{cv.education.title}</p>
+            <p class="font-mono text-xs text-muted">
+              {cv.education.school} · {cv.education.years}
+            </p>
+          </div>
+          <div>
+            <h2><span class="text-accent">$</span> languages</h2>
+            <p class="mt-3 text-sm">{cv.languages.join(" · ")}</p>
+          </div>
+        </section>
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<script>
+  const trigger = document.querySelector("[data-print]");
+  trigger?.addEventListener("click", () => window.print());
+</script>

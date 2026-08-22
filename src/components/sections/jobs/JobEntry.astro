@@ -1,0 +1,56 @@
+---
+import "./jobs.css";
+
+export interface JobRole {
+  title: string;
+  start: string;
+  end: string;
+}
+
+interface Props {
+  company: string;
+  location: string;
+  note?: string;
+  roles: JobRole[];
+  highlights: string[];
+}
+
+const { company, location, note, roles, highlights } = Astro.props;
+
+const latest = roles[0];
+const earliest = roles[roles.length - 1];
+---
+
+<li class="job">
+  <p class="job-when">
+    <span>{earliest.start} —</span>
+    <span>{latest.end}</span>
+  </p>
+  <div>
+    <div class="job-head">
+      <h3>
+        {company}
+        {note && <span class="job-note"> · {note}</span>}
+      </h3>
+      <p class="job-where">{location}</p>
+    </div>
+    <ul class="job-roles">
+      {
+        roles.map((role) => (
+          <li>
+            {role.title}
+            {roles.length > 1 && (
+              <span>
+                {" "}
+                · {role.start}—{role.end}
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+    <ul class="job-points">
+      {highlights.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</li>

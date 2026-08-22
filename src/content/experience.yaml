@@ -1,0 +1,76 @@
+- id: moonpay
+  company: MoonPay
+  location: Remote
+  order: 0
+  roles:
+    - title: Senior Software Engineer
+      start: Feb 2025
+      end: Jul 2026
+    - title: Frontend Engineer
+      start: Aug 2022
+      end: Feb 2025
+  highlights:
+    - Owned the marketing site, partner landing pages, and CMS integration.
+    - Moved heavy data work off the React Native client into a GraphQL BFF over internal APIs, cutting network waterfalls on the consumer app.
+    - Used product usage data to retire low-traffic features and legacy code so the app was simpler to change.
+    - Shipped an improved buy journey for BTC and CeFi, plus shared fee estimates across App and Account Web send flows.
+    - Added notification attribution for product, and wrote experimentation guides for the team.
+
+- id: urban-sports-club
+  company: Urban Sports Club
+  location: Hybrid - Amsterdam
+  order: 1
+  roles:
+    - title: Frontend Engineer
+      start: Sep 2021
+      end: Aug 2022
+  highlights:
+    - Took the on-demand video MVP to a production UI inside the PHP site.
+    - Added test coverage, restarted the frontend guild, and prototyped Module Federation as a path off the monolith.
+
+- id: kinder
+  company: Kinder
+  location: Amsterdam
+  order: 2
+  roles:
+    - title: Senior Frontend Developer
+      start: May 2021
+      end: Sep 2021
+  highlights:
+    - Kinder web app and a shared design system.
+
+- id: vwds
+  company: Volkswagen Digital Solutions
+  location: Lisbon
+  note: MAN Digital Hub
+  order: 3
+  roles:
+    - title: Frontend Engineer
+      start: Jul 2019
+      end: Apr 2021
+  highlights:
+    - Built fleet-admin and workshop apps for vehicle maintenance.
+    - Worked with stakeholders to shape features before they shipped.
+
+- id: alter-solutions
+  company: Alter Solutions
+  location: Lisbon
+  order: 4
+  roles:
+    - title: Software Engineer
+      start: Dec 2018
+      end: Jul 2019
+  highlights:
+    - Added features, tests, and refactors on a mature AngularJS product; helped the team adopt Agile.
+
+- id: nokia
+  company: Nokia
+  location: Aveiro / Lisbon
+  order: 5
+  roles:
+    - title: Software Developer
+      start: Apr 2015
+      end: Dec 2018
+  highlights:
+    - Designed and shipped a Leaflet GIS library for network topology visualization.
+    - Joined an internal 5G concept initiative (Java, Docker, OpenShift).

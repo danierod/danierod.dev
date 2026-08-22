@@ -8,7 +8,7 @@ export const site = {
   url: "https://danierod.dev",
   socials: {
     github: "https://github.com/danierod",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/danielvrodrigues/",
     x: "",
   },
   knowsAbout: [
@@ -18,6 +18,8 @@ export const site = {
     "React",
     "React Native",
     "PostgreSQL",
+    "Jest",
+    "React Testing Library",
   ],
 } as const;
 

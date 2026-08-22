@@ -60,9 +60,32 @@ const testimonials = defineCollection({
   }),
 });
 
+const experience = defineCollection({
+  loader: file("./src/content/experience.yaml"),
+  schema: z.object({
+    id: z.string(),
+    company: z.string(),
+    location: z.string(),
+    note: z.string().optional(),
+    order: z.number().int().nonnegative(),
+    roles: z
+      .array(
+        z.object({
+          title: z.string(),
+          start: z.string(),
+          end: z.string(),
+        }),
+      )
+      .min(1),
+    highlights: z.array(z.string()).min(1),
+  }),
+});
+
 export const collections = {
   about,
   "case-studies": caseStudies,
   writing,
   testimonials,
+  experience,
 };
+

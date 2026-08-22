@@ -9,7 +9,7 @@ interface Props {
   ctaLabel?: string;
 }
 
-const { name, intro, ctaHref = "#work", ctaLabel = "View work" } = Astro.props;
+const { name, intro, ctaHref = "/work", ctaLabel = "View work" } = Astro.props;
 
 const names = name.split(" ");
 ---
@@ -26,12 +26,13 @@ const names = name.split(" ");
   <div
     class="flex min-w-[min(100%,20rem)] flex-[1.4_1_26rem] flex-col bg-bg px-6 pb-8 pt-10 md:py-16 md:pl-6 md:pr-10 lg:pl-8 lg:pr-12"
   >
-    <Text variant="lede" muted class="my-auto max-w-2xl">
-      {intro.split("\n").map((line) => <span class="block">{line}</span>)}
-    </Text>
-    <!-- TODO: Add cta link back in once we have a page to link to -->
-    <!-- <Link href={ctaHref} icon="↓" layout="stack" class="mt-12 text-sm md:mt-0">
-      {ctaLabel}
-    </Link> -->
+    <div class="my-auto max-w-xl">
+      <Text variant="lede" muted>
+        {intro.split("\n").map((line) => <span class="block">{line}</span>)}
+      </Text>
+      <Link href={ctaHref} icon="→" class="mt-6 text-sm">
+        {ctaLabel}
+      </Link>
+    </div>
   </div>
 </section>
